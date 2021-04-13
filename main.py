@@ -16,7 +16,8 @@ User = Client(session_name=Config.STRING_SESSION, api_hash=Config.API_HASH, api_
 async def kanger(msg):
     await msg.edit(text="Forwarding Now ...")
     async for message in User.iter_history(chat_id=int(Config.FORWARD_FROM_CHAT_ID), reverse=True):
-        media = message.document or message.video or message.audio or message.photo 
+#        media = message.document or message.video or message.audio or message.photo 
+        media = message.document or message.video
         if media:
             await asyncio.sleep(Config.SLEEP_TIME)
             try:
