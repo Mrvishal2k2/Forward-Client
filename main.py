@@ -2,6 +2,9 @@
 # This is Telegram Messages Forwarder UserBot!
 # Use this at your own risk. I will not be responsible for any kind of issue while using this!
 
+# Re-edited by Mrvishal2k2 as per I need 
+# Don't use  this (It's your own risk 🙄🤦😂)
+
 import time
 import asyncio
 from pyrogram import Client, filters
@@ -9,7 +12,6 @@ from pyrogram.errors import FloodWait, UserDeactivatedBan
 from configs import Config
 
 User = Client(session_name=Config.STRING_SESSION, api_hash=Config.API_HASH, api_id=Config.API_ID)
-
 
 async def kanger(msg):
     await msg.edit(text="Forwarding Now ...")
@@ -20,13 +22,14 @@ async def kanger(msg):
             try:
                  await message.copy(int(Config.FORWARD_TO_CHAT_ID))
             except FloodWait as e:
-                await User.send_message(chat_id="me", text=f"#FloodWait: Stopping Forwarder for `{e.x}s`!")
+                await User.send_message(chat_id=Config.OWNER, text=f"#FloodWait: Stopping Forwarder for `{e.x}s`!")
                 await asyncio.sleep(e.x)
+                pass
             except UserDeactivatedBan:
                 print("Congratulations!\nYour Account Banned Successfully!\nI already told you use a Fake Account. Hope you remember.")
                 break
             except Exception as err:
-                await User.send_message(chat_id="me", text=f"#ERROR: `{err}`")
+                await User.send_message(chat_id=Config.OWNER, text=f"#ERROR: `{err}`")
         else:
             pass
     await msg.edit(text="Channel Files Successfully Kanged!\n\n©️ A Forwarder Userbot by @AbirHasan2005")
@@ -73,10 +76,10 @@ async def main(client, message):
         try:
             await message.forward(int(Config.FORWARD_TO_CHAT_ID))
         except FloodWait as e:
-            await client.send_message(chat_id="me", text=f"#FloodWait: Stopping Forwarder for `{e.x}s`!")
+            await client.send_message(chat_id=Config.OWNER, text=f"#FloodWait: Stopping Forwarder for `{e.x}s`!")
             await asyncio.sleep(e.x)
         except Exception as err:
-            await client.send_message(chat_id="me", text=f"#ERROR: `{err}`")
+            await client.send_message(chat_id=Config.OWNER, text=f"#ERROR: `{err}`")
 
 
 User.run()
