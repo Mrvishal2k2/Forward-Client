@@ -14,21 +14,25 @@ User = Client(session_name=Config.STRING_SESSION, api_hash=Config.API_HASH, api_
 async def kanger(msg):
     await msg.edit(text="Forwarding Now ...")
     async for message in User.iter_history(chat_id=int(Config.FORWARD_FROM_CHAT_ID), reverse=True):
-        await asyncio.sleep(Config.SLEEP_TIME)
-        try:
-            await message.copy(int(Config.FORWARD_TO_CHAT_ID))
-        except FloodWait as e:
-            await User.send_message(chat_id="me", text=f"#FloodWait: Stopping Forwarder for `{e.x}s`!")
-            await asyncio.sleep(e.x)
-        except UserDeactivatedBan:
-            print("Congratulations!\nYour Account Banned Successfully!\nI already told you use a Fake Account. Hope you remember.")
-            break
-        except Exception as err:
-            await User.send_message(chat_id="me", text=f"#ERROR: `{err}`")
+        media = message.document or message.video or message.audio or message.photo 
+        if media:
+            await asyncio.sleep(Config.SLEEP_TIME)
+            try:
+                 await message.copy(int(Config.FORWARD_TO_CHAT_ID))
+            except FloodWait as e:
+                await User.send_message(chat_id="me", text=f"#FloodWait: Stopping Forwarder for `{e.x}s`!")
+                await asyncio.sleep(e.x)
+            except UserDeactivatedBan:
+                print("Congratulations!\nYour Account Banned Successfully!\nI already told you use a Fake Account. Hope you remember.")
+                break
+            except Exception as err:
+                await User.send_message(chat_id="me", text=f"#ERROR: `{err}`")
+        else:
+            pass
     await msg.edit(text="Channel Files Successfully Kanged!\n\n©️ A Forwarder Userbot by @AbirHasan2005")
 
 
-@User.on_message((filters.text | filters.media) & ~filters.edited)
+@User.on_message((filters.text | filters.document | filters.video | filters.video | filters.audio) & ~filters.edited)
 async def main(client, message):
     # Checks
     if (Config.FORWARD_TO_CHAT_ID and Config.FORWARD_FROM_CHAT_ID and Config.USER_ID) is None:
