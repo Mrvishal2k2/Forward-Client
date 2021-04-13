@@ -23,3 +23,4 @@ class Config(object):
     HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME")
     HEROKU_APP = heroku3.from_key(HEROKU_API_KEY).apps()[HEROKU_APP_NAME] \
         if HEROKU_API_KEY and HEROKU_APP_NAME else None
+    OWNER = os.environ.get("OWNER","Mrvishal_2k2")
