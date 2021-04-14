@@ -11,9 +11,11 @@ class Config(object):
     # Get This From @StringSessionGen_Bot
     STRING_SESSION = os.environ.get("STRING_SESSION")
     # Forward From Chat ID
-    FORWARD_FROM_CHAT_ID = os.environ.get("FORWARD_FROM_CHAT_ID", -1001458807892)
+    FORWARD_FROM_CHAT_ID = os.environ.get("FORWARD_FROM_CHAT_ID")
+    FORWARD_FROM_CHAT_ID_B = os.environ.get("FORWARD_FROM_CHAT_ID_B")
+
     # Forward To Chat ID
-    FORWARD_TO_CHAT_ID = os.environ.get("FORWARD_TO_CHAT_ID", -1001283040775)
+    FORWARD_TO_CHAT_ID = os.environ.get("FORWARD_TO_CHAT_ID")
     # Your User ID
     USER_ID = os.environ.get("USER_ID", 1406976373)
     # Sleep Time while Kang
