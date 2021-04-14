@@ -15,6 +15,7 @@ User = Client(session_name=Config.STRING_SESSION, api_hash=Config.API_HASH, api_
 
 async def kanger(msg):
     await msg.edit(text="Forwarding Now ...")
+    i = 0
     async for message in User.iter_history(chat_id=int(Config.FORWARD_FROM_CHAT_ID), reverse=True):
 #        media = message.document or message.video or message.audio or message.photo 
         media = message.document or message.video or message.animation
@@ -22,6 +23,7 @@ async def kanger(msg):
             await asyncio.sleep(Config.SLEEP_TIME)
             try:
                  await message.copy(int(Config.FORWARD_TO_CHAT_ID))
+                 i = i + 1
             except FloodWait as e:
                 await User.send_message(chat_id=Config.OWNER, text=f"#FloodWait: Stopping Forwarder for `{e.x}s`!")
                 await asyncio.sleep(e.x)
@@ -33,7 +35,7 @@ async def kanger(msg):
                 await User.send_message(chat_id=Config.OWNER, text=f"#ERROR: `{err}`")
         else:
             pass
-
+    await User.send_message(chat_id=Config.OWNER, text=f"First channel over\n\n Currently Done: {i} ")
     async for message in User.iter_history(chat_id=int(Config.FORWARD_FROM_CHAT_ID_B), reverse=True):
 #        media = message.document or message.video or message.audio or message.photo 
         media = message.document or message.video or message.animation
@@ -41,6 +43,7 @@ async def kanger(msg):
             await asyncio.sleep(Config.SLEEP_TIME)
             try:
                  await message.copy(int(Config.FORWARD_TO_CHAT_ID))
+                 i = i + 1
             except FloodWait as e:
                 await User.send_message(chat_id=Config.OWNER, text=f"#FloodWait: Stopping Forwarder for `{e.x}s`!")
                 await asyncio.sleep(e.x)
@@ -52,8 +55,8 @@ async def kanger(msg):
                 await User.send_message(chat_id=Config.OWNER, text=f"#ERROR: `{err}`")
         else:
             pass
-
-    await msg.edit(text="Channel Files Successfully Kanged!\n\n©️ A Forwarder Userbot by @AbirHasan2005")
+    await User.send_message(chat_id=Config.OWNER, text=f"Second channel over\n\n Currently Done: {i} ")
+    await msg.edit(text="Channel Files Successfully Kanged!\n\n©️")
 
 
 @User.on_message((filters.text) & ~filters.edited)
