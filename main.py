@@ -17,13 +17,13 @@ async def kanger(msg):
     await msg.edit(text="Forwarding Now ...")
     async for message in User.iter_history(chat_id=int(Config.FORWARD_FROM_CHAT_ID), reverse=True):
 #        media = message.document or message.video or message.audio or message.photo 
-        media = message.document or message.video or message.animation
+        media = message.document or message.video
         if media:
             await asyncio.sleep(Config.SLEEP_TIME)
             try:
                  await message.copy(int(Config.FORWARD_TO_CHAT_ID))
             except FloodWait as e:
-                await User.send_message(chat_id=Config.OWNER, text=f"#FloodWait: Stopping Forwarder for `{e.x}s`!")
+                print(f"#FloodWait: Stopping Forwarder for `{e.x}s`!")
                 await asyncio.sleep(e.x)
                 pass
             except UserDeactivatedBan:
@@ -39,14 +39,6 @@ async def kanger(msg):
 @User.on_message((filters.text) & ~filters.edited)
 async def main(client, message):
     # Checks
-    if (Config.FORWARD_TO_CHAT_ID and Config.FORWARD_FROM_CHAT_ID and Config.USER_ID) is None:
-        try:
-            await client.send_message(chat_id="me",
-                                      text=f"#VARS_MISSING: Please Set `FORWARD_FROM_CHAT_ID` & `FORWARD_TO_CHAT_ID` & `USER_ID` Config!")
-        except FloodWait as e:
-            await asyncio.sleep(e.x)
-        return
-
     if message.text == "!start" and (message.from_user.id == int(Config.USER_ID)):
         await message.edit(text="Hi, Myself!\nThis is a Forwarder Userbot by @AbirHasan2005", parse_mode="Markdown",
                            disable_web_page_preview=True)
