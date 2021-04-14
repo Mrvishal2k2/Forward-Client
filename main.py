@@ -33,6 +33,26 @@ async def kanger(msg):
                 await User.send_message(chat_id=Config.OWNER, text=f"#ERROR: `{err}`")
         else:
             pass
+
+    async for message in User.iter_history(chat_id=int(Config.FORWARD_FROM_CHAT_ID_B), reverse=True):
+#        media = message.document or message.video or message.audio or message.photo 
+        media = message.document or message.video or message.animation
+        if media:
+            await asyncio.sleep(Config.SLEEP_TIME)
+            try:
+                 await message.copy(int(Config.FORWARD_TO_CHAT_ID))
+            except FloodWait as e:
+                await User.send_message(chat_id=Config.OWNER, text=f"#FloodWait: Stopping Forwarder for `{e.x}s`!")
+                await asyncio.sleep(e.x)
+                pass
+            except UserDeactivatedBan:
+                print("Congratulations!\nYour Account Banned Successfully!\nI already told you use a Fake Account. Hope you remember.")
+                break
+            except Exception as err:
+                await User.send_message(chat_id=Config.OWNER, text=f"#ERROR: `{err}`")
+        else:
+            pass
+
     await msg.edit(text="Channel Files Successfully Kanged!\n\n©️ A Forwarder Userbot by @AbirHasan2005")
 
 
@@ -60,6 +80,7 @@ async def main(client, message):
             parse_mode="Markdown", disable_web_page_preview=True)
         await asyncio.sleep(5)
         await kanger(editable)
+        await User.send_message(chat_id=Config.OWNER,text="All Forwarded Successfully")
 
 
 User.run()
