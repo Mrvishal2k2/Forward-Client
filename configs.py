@@ -1,8 +1,6 @@
 # (c) @AbirHasan2005
 
 import os
-import heroku3
-
 
 class Config(object):
     # Get This From @TeleORG_Bot
