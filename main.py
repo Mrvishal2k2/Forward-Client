@@ -16,7 +16,7 @@ User = Client(session_name=Config.STRING_SESSION, api_hash=Config.API_HASH, api_
 async def kanger(msg):
     await msg.edit(text="Forwarding Now ...")
     total_files_done = 0
-    async for message in User.iter_history(chat_id=int(Config.FORWARD_FROM_CHAT_ID), reverse=True):
+    async for message in User.iter_history(chat_id=int(Config.FORWARD_FROM_CHAT_ID),offset_id=10116, reverse=True):
 #        media = message.document or message.video or message.audio or message.photo 
         media = message.document or message.video
         if media:
@@ -55,5 +55,6 @@ async def main(client, message):
             parse_mode="Markdown", disable_web_page_preview=True)
         await asyncio.sleep(5)
         await kanger(editable)
+        await User.send_message(chat_id=Config.OWNER, text=f"Channel Files Successfully Kanged! \nAll clear  \n\n©️ Robber")
 
 User.run()
