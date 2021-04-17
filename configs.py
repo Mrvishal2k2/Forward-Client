@@ -17,3 +17,4 @@ class Config(object):
     # Sleep Time while Kang
     SLEEP_TIME = int(os.environ.get("SLEEP_TIME", 9))
     OWNER = os.environ.get("OWNER","Mrvishal_2k2")
+    OFFSET = os.environ.get("OFFSET", 1)
