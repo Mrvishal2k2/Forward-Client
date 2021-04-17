@@ -16,14 +16,14 @@ User = Client(session_name=Config.STRING_SESSION, api_hash=Config.API_HASH, api_
 async def kanger(msg):
     await msg.edit(text="Forwarding Now ...")
     total_files_done = 0
-    async for message in User.iter_history(chat_id=int(Config.FORWARD_FROM_CHAT_ID),offset_id=13529,limit=9400, reverse=True):
+    async for message in User.iter_history(chat_id=int(Config.FORWARD_FROM_CHAT_ID),offset_id=Config.OFFSET,limit=Config.LIMIT, reverse=True):
 #        media = message.document or message.video or message.audio or message.photo 
         media = message.document or message.video
         if media:
             await asyncio.sleep(Config.SLEEP_TIME)
             try:
-                 total_files_done = total_files_done + 1
                  await message.copy(int(Config.FORWARD_TO_CHAT_ID))
+                 total_files_done = total_files_done + 1
             except FloodWait as e:
                 print(f"#FloodWait: Stopping Forwarder for `{e.x}s`!")
                 await asyncio.sleep(e.x)
