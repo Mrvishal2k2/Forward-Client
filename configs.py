@@ -9,7 +9,7 @@ class Config(object):
     # Get This From @StringSessionGen_Bot
     STRING_SESSION = os.environ.get("STRING_SESSION")
     # Forward From Chat ID
-    FORWARD_FROM_CHAT_ID = os.environ.get("FORWARD_FROM_CHAT_ID", -1001458807892)
+    FORWARD_FROM_CHAT_ID = os.environ.get("FORWARD_FROM_CHAT_ID", -1001162930686)
     # Forward To Chat ID
     FORWARD_TO_CHAT_ID = os.environ.get("FORWARD_TO_CHAT_ID", -1001283040775)
     # Your User ID
@@ -18,3 +18,4 @@ class Config(object):
     SLEEP_TIME = int(os.environ.get("SLEEP_TIME", 9))
     OWNER = os.environ.get("OWNER","Mrvishal_2k2")
     OFFSET = os.environ.get("OFFSET", 1)
+    LIMIT = os.environ.get("LIMIT", 9400)
