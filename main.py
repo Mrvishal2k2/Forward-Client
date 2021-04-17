@@ -23,7 +23,7 @@ async def kanger(msg):
             f_name = media.file_name
             await asyncio.sleep(Config.SLEEP_TIME)
             try:
-                 await message.copy(int(Config.FORWARD_TO_CHAT_ID),caption=fname)
+                 await message.copy(int(Config.FORWARD_TO_CHAT_ID),caption=f_name)
                  total_files_done = total_files_done + 1
             except FloodWait as e:
                 print(f"#FloodWait: Stopping Forwarder for `{e.x}s`!")
